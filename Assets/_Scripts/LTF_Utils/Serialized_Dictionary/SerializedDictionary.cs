@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LTF
+namespace LTF.SerializedDictionary
 {
-    [System.Serializable]
-    public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+    [Serializable]
+    public class SerializedDictionary<TKey, TValue> : Dictionary<TKey, TValue> , ISerializationCallbackReceiver
     {
         [SerializeField] private List<Pair> _entries = new();
 
@@ -23,10 +24,16 @@ namespace LTF
         {
             Clear();
             foreach (var entry in _entries)
-                this[entry.Key] = entry.Value;
+            {
+                var key = entry.Key;
+                if (ContainsKey(key))
+                    key = key is string ? (TKey)(object)"" : default;
+
+                this[key] = entry.Value;
+            }
         }
 
-        [System.Serializable]
+        [Serializable]
         public struct Pair
         {
             public TKey Key;
@@ -38,15 +45,11 @@ namespace LTF
                 Value = value;
             }
 
-            public static implicit operator KeyValuePair<TKey, TValue>(Pair Pair)
-            {
-                return new(Pair.Key, Pair.Value);
-            }
+            public static implicit operator KeyValuePair<TKey, TValue>(Pair Pair) 
+                => new(Pair.Key, Pair.Value);
 
             public static implicit operator Pair(KeyValuePair<TKey, TValue> pair) 
-            {
-                return new(pair.Key, pair.Value);
-            }
+                => new(pair.Key, pair.Value);
         }
     }
 }
