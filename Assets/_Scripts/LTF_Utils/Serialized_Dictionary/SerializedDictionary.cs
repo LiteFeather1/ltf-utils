@@ -41,14 +41,14 @@ namespace LTF.SerializedDictionary
 
             public Pair(TKey key, TValue value)
             {
-                Key = key; 
+                Key = key;
                 Value = value;
             }
 
-            public static implicit operator KeyValuePair<TKey, TValue>(Pair Pair) 
+            public static implicit operator KeyValuePair<TKey, TValue>(Pair Pair)
                 => new(Pair.Key, Pair.Value);
 
-            public static implicit operator Pair(KeyValuePair<TKey, TValue> pair) 
+            public static implicit operator Pair(KeyValuePair<TKey, TValue> pair)
                 => new(pair.Key, pair.Value);
         }
     }

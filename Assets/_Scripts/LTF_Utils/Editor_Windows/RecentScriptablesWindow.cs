@@ -253,10 +253,7 @@ namespace LTF.Editor.Windows
         {
             [field: SerializeField] public List<SavedScriptable> List { get; private set; }
 
-            public Data(List<SavedScriptable> list)
-            {
-                List = list;
-            }
+            public Data(List<SavedScriptable> list) => List = list;
 
             public readonly SavedScriptable this[int i] { get => List[i]; set => List[i] = value; }
 

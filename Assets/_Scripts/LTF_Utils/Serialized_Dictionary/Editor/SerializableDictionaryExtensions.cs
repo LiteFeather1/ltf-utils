@@ -18,9 +18,9 @@ namespace LTF.SerializedDictionary.Editor
             var type = source.GetType();
             while (type != null)
             {
-                var fi = type.GetField(name, PUBLIC_OR_NON_INSTANCE);
-                if (fi != null)
-                    return fi.GetValue(source);
+                var fieldInfo = type.GetField(name, PUBLIC_OR_NON_INSTANCE);
+                if (fieldInfo != null)
+                    return fieldInfo.GetValue(source);
 
                 var prop = type.GetProperty(name, PUBLIC_OR_NON_INSTANCE | BindingFlags.IgnoreCase);
                 if (prop != null)
@@ -65,38 +65,37 @@ namespace LTF.SerializedDictionary.Editor
             return targetObject;
         }
 
-        public static object GetValue(this SerializedProperty prop) 
-            => prop.propertyType switch
+        public static object GetValue(this SerializedProperty prop) => prop.propertyType switch
+        {
+            SerializedPropertyType.Integer => prop.intValue,
+            SerializedPropertyType.Boolean => prop.boolValue,
+            SerializedPropertyType.Float => prop.floatValue,
+            SerializedPropertyType.String => prop.stringValue,
+            SerializedPropertyType.Color => prop.colorValue,
+            SerializedPropertyType.ObjectReference => prop.objectReferenceValue,
+            SerializedPropertyType.Enum => prop.enumValueIndex,
+            SerializedPropertyType.Vector2 => prop.vector2Value,
+            SerializedPropertyType.Vector3 => prop.vector3Value,
+            SerializedPropertyType.Vector4 => prop.vector4Value,
+            SerializedPropertyType.Rect => prop.rectIntValue,
+            SerializedPropertyType.ArraySize => prop.arraySize,
+            SerializedPropertyType.AnimationCurve => prop.animationCurveValue,
+            SerializedPropertyType.Bounds => prop.boundsValue,
+            SerializedPropertyType.Quaternion => prop.quaternionValue,
+            SerializedPropertyType.ExposedReference => prop.exposedReferenceValue,
+            SerializedPropertyType.FixedBufferSize => prop.fixedBufferSize,
+            SerializedPropertyType.Vector2Int => prop.vector2IntValue,
+            SerializedPropertyType.Vector3Int => prop.vector3IntValue,
+            SerializedPropertyType.RectInt => prop.rectIntValue,
+            SerializedPropertyType.BoundsInt => prop.boundsIntValue,
+            // Missing cases but relative easy to add
+            _ => prop.type switch
             {
-                SerializedPropertyType.Integer => prop.intValue,
-                SerializedPropertyType.Boolean => prop.boolValue,
-                SerializedPropertyType.Float => prop.floatValue,
-                SerializedPropertyType.String => prop.stringValue,
-                SerializedPropertyType.Color => prop.colorValue,
-                SerializedPropertyType.ObjectReference => prop.objectReferenceValue,
-                SerializedPropertyType.Enum => prop.enumValueIndex,
-                SerializedPropertyType.Vector2 => prop.vector2Value,
-                SerializedPropertyType.Vector3 => prop.vector3Value,
-                SerializedPropertyType.Vector4 => prop.vector4Value,
-                SerializedPropertyType.Rect => prop.rectIntValue,
-                SerializedPropertyType.ArraySize => prop.arraySize,
-                SerializedPropertyType.AnimationCurve => prop.animationCurveValue,
-                SerializedPropertyType.Bounds => prop.boundsValue,
-                SerializedPropertyType.Quaternion => prop.quaternionValue,
-                SerializedPropertyType.ExposedReference => prop.exposedReferenceValue,
-                SerializedPropertyType.FixedBufferSize => prop.fixedBufferSize,
-                SerializedPropertyType.Vector2Int => prop.vector2IntValue,
-                SerializedPropertyType.Vector3Int => prop.vector3IntValue,
-                SerializedPropertyType.RectInt => prop.rectIntValue,
-                SerializedPropertyType.BoundsInt => prop.boundsIntValue,
-                // Missing cases but relative easy to add
-                _ => prop.type switch
-                {
-                    "double" => prop.doubleValue,
-                    "long" => prop.longValue,
-                    _ => prop.GetTargetObject(),
-                },
-            };
+                "double" => prop.doubleValue,
+                "long" => prop.longValue,
+                _ => prop.GetTargetObject(),
+            },
+        };
 
         public static bool HasAnyElementSameValue(this SerializedProperty array, SerializedProperty key1, int skipIndex)
         {
