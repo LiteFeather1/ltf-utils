@@ -68,6 +68,7 @@ namespace LTF.SerializedDictionary.Editor
                 drawHeaderCallback = rect => EditorGUI.LabelField(rect, fieldInfo.Name),
                 onAddCallback = _ => _entriesProperty.InsertArrayElementAtIndex(_entriesProperty.arraySize),
                 onRemoveCallback = _ => _entriesProperty.DeleteArrayElementAtIndex(_selectedIndex),
+                onSelectCallback = list => _selectedIndex = list.index,
                 onReorderCallback = list =>
                 {
                     _entriesProperty.MoveArrayElement(_selectedIndex, list.index);
@@ -97,7 +98,7 @@ namespace LTF.SerializedDictionary.Editor
                     GUI.enabled = !_isReadOnly;
 
                     // Draw Properties
-                    rect.position = new Vector2(rect.position.x + 10, rect.position.y);
+                    rect.position = new Vector2(rect.position.x + 10f, rect.position.y);
 
                     var halfSizeX = rect.size.x * .5f;
                     var keyProp = _entriesProperty.GetArrayElementAtIndex(index).FindPropertyRelative("Key");
@@ -121,11 +122,6 @@ namespace LTF.SerializedDictionary.Editor
                         return r_cachedContent;
                     }
                 },
-            };
-            _reorderableList.onSelectCallback += list =>
-            {
-                Debug.Log(list.index);
-                _selectedIndex = list.index;
             };
         }
     }

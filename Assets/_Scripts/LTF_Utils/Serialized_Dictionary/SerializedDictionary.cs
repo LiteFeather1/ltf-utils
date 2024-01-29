@@ -16,6 +16,7 @@ namespace LTF.SerializedDictionary
         public void OnBeforeSerialize()
         {
             _entries.Clear();
+
             foreach (var pair in this)
                 _entries.Add(pair);
         }
@@ -23,6 +24,7 @@ namespace LTF.SerializedDictionary
         public void OnAfterDeserialize()
         {
             Clear();
+
             foreach (var entry in _entries)
             {
                 var key = entry.Key;
@@ -43,6 +45,12 @@ namespace LTF.SerializedDictionary
             {
                 Key = key;
                 Value = value;
+            }
+
+            public readonly void Deconstruct(out TKey key, out TValue value)
+            {
+                key = Key;
+                value = Value;
             }
 
             public static implicit operator KeyValuePair<TKey, TValue>(Pair Pair)
