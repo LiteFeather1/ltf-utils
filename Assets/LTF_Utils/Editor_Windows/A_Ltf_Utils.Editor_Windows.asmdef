@@ -1,8 +1,10 @@
 {
-    "name": "A_SerializableDictionary",
-    "rootNamespace": "",
+    "name": "LtfUtils.Editor_Windows",
+    "rootNamespace": "LTF.Editor.Windows",
     "references": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using LTF.Utils;
 
 namespace LTF.CustomWaits
 {
@@ -33,7 +32,7 @@ namespace LTF.CustomWaits
         public void Reset()
         {
             _elapsedTime = 0f;
-            _waitTime = _randomWaitTime.Random();
+            _waitTime = Random.Range(_randomWaitTime.x, _randomWaitTime.y);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace LTF
 
         public static implicit operator T(OptionalValue<T> o) => o._value;
 
-        public static implicit operator bool(OptionalValue<T> o) => o.Enabled;
+        public static implicit operator bool(OptionalValue<T> o) => o._enabled;
 
         public static bool operator ==(OptionalValue<T> left, OptionalValue<T> right)
         {
