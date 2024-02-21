@@ -116,10 +116,22 @@ namespace LTF.Utils
         /// <summary>
         /// Map a value from a range to another
         /// </summary>
-        public static float Map(float value, float min1, float max1, float min2, float max2, bool clamp = false)
+        public static float Remap(float value, float min1, float max1, float min2, float max2)
         {
-            float map = min2 + (max2 - min1) * ((value - min1) / (max1 - min1));
-            return clamp ? Mathf.Clamp(map, Mathf.Min(min2, max2), Mathf.Max(min2, max2)) : map;
+            return (value - min1) / (max1 - min1) * (max2 - min2) + min2;
+        }
+
+        /// <summary>
+        /// Map a value from a range to another. The result will be clamped between min2 and max2
+        /// </summary>
+        public static float RemapClamped(float value, float min1, float max1, float min2, float max2)
+        {
+            if (value < min1)
+                return min2;
+            else if (value > max1)
+                return max2;
+
+            return (value - min1) / (max1 - min1) * (max2 - min2) + min2;
         }
 
         /// <summary>
