@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEditor;
 using LTF.BiasedRandom;
+using LTF.Utils;
 
 public class BiasedRandomManager : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
 
-    private BiasedRandom _biasedRandom = new(-100f, 100f, 0f, .5f);
+    [SerializeField] private BiasedRandom _biasedRandom = new(-100f, 100f, 0f, .5f);
     [SerializeField] private float _dotAmount = 100;
 
     [Header("Seed")]
@@ -25,24 +26,23 @@ public class BiasedRandomManager : MonoBehaviour
 
         _randomizeSeed = false;
         _seed = (int)System.DateTime.Now.Ticks;
-
     }
 
     private void OnDrawGizmos()
     {
+        Random.InitState(_seed);
         var cam = SceneView.currentDrawingSceneView ? SceneView.currentDrawingSceneView.camera : _cam;
 
-        var zoom = cam.orthographicSize;
-        Random.InitState(_seed);
         Gizmos.color = sr_unityRandom;
+        var zoom = cam.orthographicSize;
+        var width = zoom * cam.aspect * .9f;
+        var camPos = cam.transform.position;
         for (int i = 0; i < _dotAmount; i++)
         {
-            Gizmos.DrawSphere(
-                new (
-                    cam.transform.position.x + (Random.Range(_biasedRandom.Min, _biasedRandom.Max) * zoom * 0.015f),
-                    cam.transform.position.y,
-                    cam.transform.position.z + 10f), 
-                RADIUS * zoom);
+            var xR = LTFHelpersMath.Remap(Random.Range(_biasedRandom.Min, _biasedRandom.Max), 
+                _biasedRandom.Min, _biasedRandom.Max, 
+                -width, width);
+            Gizmos.DrawSphere(new(camPos.x + xR, camPos.y, camPos.z + 10f), RADIUS * zoom);
         }
         Gizmos.color = sr_biasedRandom;
     }
