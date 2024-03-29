@@ -9,6 +9,7 @@ namespace LTF.Timers
         public float WaitTime { get; }
         public float ElapsedTime { get; }
         public bool CanTick { get; }
+        public bool Looping { get; }
 
         public float T { get; }
         public float TimeLeft { get; }
@@ -23,12 +24,17 @@ namespace LTF.Timers
         /// <summary>
         /// Change Time to do Event
         /// </summary>
-        public void ChangeTime(float time);
+        public void ChangeWaitTime(float time);
 
         /// <summary>
-        /// Set Time to do Event
+        /// Set Wait Time to Time Event
         /// </summary>
-        public void SetTime(float time);
+        public void SetWaitTime(float time);
+
+        /// <summary>
+        /// Set looping, if true and set to false it will stop on next Time Event
+        /// </summary>
+        public void SetLooping(bool looping);
 
         /// <summary>
         /// Stops ticking

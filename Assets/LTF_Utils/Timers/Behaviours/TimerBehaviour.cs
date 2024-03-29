@@ -12,13 +12,18 @@ namespace LTF.Timers
         public float WaitTime => _timer.WaitTime;
         public float ElapsedTime => _timer.ElapsedTime;
         public bool CanTick => _timer.CanTick;
+        public bool Looping => _timer.Looping;
 
         public float T => _timer.T;
         public float TimeLeft => _timer.TimeLeft;
 
         public void SetSpeedScale(float scale) => _timer.SetSpeedScale(scale);
-        public void ChangeTime(float time) => _timer.ChangeTime(time);
-        public void SetTime(float time) => _timer.SetTime(time);
+
+        public void ChangeWaitTime(float time) => _timer.ChangeWaitTime(time);
+
+        public void SetWaitTime(float time) => _timer.SetWaitTime(time);
+
+        public void SetLooping(bool looping) => _timer.SetLooping(looping);
 
         private void Update() => _timer.Tick();
 

@@ -24,6 +24,7 @@ namespace LTF.Timers
         }
 
         public override float WaitTime { get => _time; protected set => _time = value; }
+
         public Vector2 Range { get => _range; set => _range = value; }
 
         private void SetRandomTime() => _time = Random.Range(_range.x, _range.y);

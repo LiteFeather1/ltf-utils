@@ -7,6 +7,7 @@ namespace LTF.Timers
     public abstract class Timer : ITimer
     {
         [SerializeField] private bool _canTick = true;
+        [SerializeField] private bool _looping = false;
         [SerializeField] private TimeType _timeType = TimeType.DeltaTime;
         private float _elapsedTime = 0f;
         private float _speedScale = 1f;
@@ -30,6 +31,7 @@ namespace LTF.Timers
         public abstract float WaitTime { get; protected set; }
         public float ElapsedTime => _elapsedTime;
         public bool CanTick => _canTick;
+        public bool Looping => _looping;
 
         public float T => _elapsedTime / WaitTime;
         public float TimeLeft => WaitTime - _elapsedTime;
@@ -49,15 +51,21 @@ namespace LTF.Timers
             if (_elapsedTime < WaitTime)
                 return;
 
-            Reset_();
+            if (_looping)
+                Reset_();
+            else 
+                Stop();
+
             TimeEvent?.Invoke();
         }
 
         public void SetSpeedScale(float scale) => _speedScale = scale;
 
-        public void ChangeTime(float time) => WaitTime += time;
+        public void ChangeWaitTime(float time) => WaitTime += time;
 
-        public void SetTime(float time) => WaitTime = time;
+        public void SetWaitTime(float time) => WaitTime = time;
+
+        public void SetLooping(bool looping) => _looping = looping;
 
         public void Stop() => _canTick = false;
 
