@@ -12,22 +12,20 @@ namespace LTF.Timers
                           bool canTick = true,
                           TimeType timeType = TimeType.DeltaTime,
                           float elapsedTime = 0f,
-                          float deltaMultiplier = 1f)
-            : base((range.x + range.y) * .5f, canTick, timeType, elapsedTime, deltaMultiplier)
-        {
-            TimeEvent += SetTime;
-        }
+                          float speed_scale = 1f)
+            : base((range.x + range.y) * .5f, canTick, timeType, elapsedTime, speed_scale) 
+            => TimeEvent += SetRandomTime;
 
-        public TimerRange() : this(Vector2.zero) { }
+        public TimerRange() : this(new Vector2(1f, 2f)) { }
 
         ~TimerRange()
         {
-            TimeEvent -= SetTime;
+            TimeEvent -= SetRandomTime;
         }
 
         public override float TimeToDo { get => _time; protected set => _time = value; }
         public Vector2 Range { get => _range; set => _range = value; }
 
-        private void SetTime() => _time = Random.Range(_range.x, _range.y);
+        private void SetRandomTime() => _time = Random.Range(_range.x, _range.y);
     }
 }

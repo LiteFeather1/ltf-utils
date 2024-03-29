@@ -13,7 +13,7 @@ namespace LTF.Timers
         public float ElapsedTime => _timer.ElapsedTime;
         public bool CanTick => _timer.CanTick;
 
-        public void SetDeltaMultiplier(float multipler) => _timer.SetDeltaMultiplier(multipler);
+        public void SetSpeedScale(float scale) => _timer.SetSpeedScale(scale);
         public void ChangeTime(float time) => _timer.ChangeTime(time);
         public void SetTime(float time) => _timer.SetTime(time);
 

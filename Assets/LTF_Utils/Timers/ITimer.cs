@@ -17,7 +17,7 @@ namespace LTF.Timers
         /// <summary>
         /// Set how fast elasedtime gets ticked 
         /// </summary>
-        public void SetDeltaMultiplier(float multipler);
+        public void SetSpeedScale(float scale);
 
         /// <summary>
         /// Change Time to do Event

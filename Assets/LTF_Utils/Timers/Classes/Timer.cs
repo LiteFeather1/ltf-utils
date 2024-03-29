@@ -9,19 +9,19 @@ namespace LTF.Timers
         [SerializeField] private bool _canTick = true;
         [SerializeField] private TimeType _timeType = TimeType.DeltaTime;
         private float _elapsedTime = 0f;
-        private float _deltaMultiplier = 1f;
+        private float _speedScale = 1f;
 
         protected Timer(float time,
                         bool canTick,
                         TimeType timeType,
                         float elapsedTime,
-                        float deltaMultiplier)
+                        float speedScale)
         {
             TimeToDo = time;
             _canTick = canTick;
             _timeType = timeType;
             _elapsedTime = elapsedTime;
-            _deltaMultiplier = deltaMultiplier;
+            _speedScale = speedScale;
             TimeEvent = delegate { };
         }
 
@@ -38,7 +38,7 @@ namespace LTF.Timers
             if (!_canTick)
                 return;
 
-            _elapsedTime += _deltaMultiplier * _timeType switch
+            _elapsedTime += _speedScale * _timeType switch
             {
                 TimeType.DeltaTime => Time.deltaTime,
                 TimeType.UnscaledDeltaTime => Time.unscaledDeltaTime,
@@ -52,7 +52,7 @@ namespace LTF.Timers
             TimeEvent?.Invoke();
         }
 
-        public void SetDeltaMultiplier(float multipler) => _deltaMultiplier = multipler;
+        public void SetSpeedScale(float scale) => _speedScale = scale;
 
         public void ChangeTime(float time) => TimeToDo += time;
 

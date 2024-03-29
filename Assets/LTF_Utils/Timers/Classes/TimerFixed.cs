@@ -11,10 +11,10 @@ namespace LTF.Timers
                           bool canTick = true,
                           TimeType timeType = TimeType.DeltaTime,
                           float elapsedTime = 0f,
-                          float deltaMultiplier = 1f)
-        : base(time, canTick, timeType, elapsedTime, deltaMultiplier) { }
+                          float speedScale = 1f)
+        : base(time, canTick, timeType, elapsedTime, speedScale) { }
 
-        public TimerFixed() : this(0f) { }
+        public TimerFixed() : this(1f) { }
 
         public override float TimeToDo { get => _time; protected set => _time = value; }
 
