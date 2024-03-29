@@ -23,10 +23,10 @@ namespace LTF.Timers
             _timeType = timeType;
             _elapsedTime = elapsedTime;
             _speedScale = speedScale;
-            TimeEvent = delegate { };
+            Timeout = delegate { };
         }
 
-        public Action TimeEvent { get; set; }
+        public Action Timeout { get; set; }
 
         public abstract float WaitTime { get; protected set; }
         public float ElapsedTime => _elapsedTime;
@@ -56,7 +56,7 @@ namespace LTF.Timers
             else 
                 Stop();
 
-            TimeEvent?.Invoke();
+            Timeout?.Invoke();
         }
 
         public void SetSpeedScale(float scale) => _speedScale = scale;

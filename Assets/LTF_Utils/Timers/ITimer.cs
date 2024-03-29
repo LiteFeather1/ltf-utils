@@ -4,7 +4,7 @@ namespace LTF.Timers
 {
     public interface ITimer
     {
-        public Action TimeEvent { get; set; }
+        public Action Timeout { get; set; }
 
         public float WaitTime { get; }
         public float ElapsedTime { get; }

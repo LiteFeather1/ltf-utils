@@ -7,7 +7,7 @@ namespace LTF.Timers
     {
         [SerializeField] private Timer _timer;
 
-        public Action TimeEvent { get => _timer.TimeEvent; set => _timer.TimeEvent = value; }
+        public Action Timeout { get => _timer.Timeout; set => _timer.Timeout = value; }
 
         public float WaitTime => _timer.WaitTime;
         public float ElapsedTime => _timer.ElapsedTime;
