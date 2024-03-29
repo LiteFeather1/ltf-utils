@@ -3,15 +3,17 @@ using System;
 
 namespace LTF.Timers
 {
-    public abstract class TimerBehaviour<T> : MonoBehaviour, ITimer where T : ITimer
+    public abstract class TimerBehaviour<Timer> : MonoBehaviour, ITimer where Timer : ITimer
     {
-        [SerializeField] private T _timer;
+        [SerializeField] private Timer _timer;
 
         public Action TimeEvent { get => _timer.TimeEvent; set => _timer.TimeEvent = value; }
 
         public float TimeToDo => _timer.TimeToDo;
         public float ElapsedTime => _timer.ElapsedTime;
         public bool CanTick => _timer.CanTick;
+
+        public float T => _timer.T;
 
         public void SetSpeedScale(float scale) => _timer.SetSpeedScale(scale);
         public void ChangeTime(float time) => _timer.ChangeTime(time);

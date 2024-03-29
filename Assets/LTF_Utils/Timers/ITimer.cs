@@ -10,7 +10,7 @@ namespace LTF.Timers
         public float ElapsedTime { get; }
         public bool CanTick { get; }
 
-        public float T => ElapsedTime / TimeToDo;
+        public float T { get; }
 
         public void Tick();
 
