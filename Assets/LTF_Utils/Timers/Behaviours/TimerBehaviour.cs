@@ -9,7 +9,7 @@ namespace LTF.Timers
 
         public Action TimeEvent { get => _timer.TimeEvent; set => _timer.TimeEvent = value; }
 
-        public float TimeToDo => _timer.TimeToDo;
+        public float WaitTime => _timer.WaitTime;
         public float ElapsedTime => _timer.ElapsedTime;
         public bool CanTick => _timer.CanTick;
 

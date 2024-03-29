@@ -6,7 +6,7 @@ namespace LTF.Timers
     {
         public Action TimeEvent { get; set; }
 
-        public float TimeToDo { get; }
+        public float WaitTime { get; }
         public float ElapsedTime { get; }
         public bool CanTick { get; }
 

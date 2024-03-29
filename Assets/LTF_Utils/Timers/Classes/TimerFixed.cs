@@ -16,7 +16,7 @@ namespace LTF.Timers
 
         public TimerFixed() : this(1f) { }
 
-        public override float TimeToDo { get => _time; protected set => _time = value; }
+        public override float WaitTime { get => _time; protected set => _time = value; }
 
     }
 }

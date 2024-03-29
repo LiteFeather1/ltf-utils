@@ -17,7 +17,7 @@ namespace LTF.Timers
                         float elapsedTime,
                         float speedScale)
         {
-            TimeToDo = time;
+            WaitTime = time;
             _canTick = canTick;
             _timeType = timeType;
             _elapsedTime = elapsedTime;
@@ -27,12 +27,12 @@ namespace LTF.Timers
 
         public Action TimeEvent { get; set; }
 
-        public abstract float TimeToDo { get; protected set; }
+        public abstract float WaitTime { get; protected set; }
         public float ElapsedTime => _elapsedTime;
         public bool CanTick => _canTick;
 
-        public float T => _elapsedTime / TimeToDo;
-        public float TimeLeft => TimeToDo - _elapsedTime;
+        public float T => _elapsedTime / WaitTime;
+        public float TimeLeft => WaitTime - _elapsedTime;
 
         public void Tick()
         {
@@ -46,7 +46,7 @@ namespace LTF.Timers
                 _ => Time.deltaTime,
             };
 
-            if (_elapsedTime < TimeToDo)
+            if (_elapsedTime < WaitTime)
                 return;
 
             Reset_();
@@ -55,9 +55,9 @@ namespace LTF.Timers
 
         public void SetSpeedScale(float scale) => _speedScale = scale;
 
-        public void ChangeTime(float time) => TimeToDo += time;
+        public void ChangeTime(float time) => WaitTime += time;
 
-        public void SetTime(float time) => TimeToDo = time;
+        public void SetTime(float time) => WaitTime = time;
 
         public void Stop() => _canTick = false;
 
