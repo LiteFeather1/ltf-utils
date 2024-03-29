@@ -14,6 +14,7 @@ namespace LTF.Timers
         public bool CanTick => _timer.CanTick;
 
         public float T => _timer.T;
+        public float TimeLeft => _timer.TimeLeft;
 
         public void SetSpeedScale(float scale) => _timer.SetSpeedScale(scale);
         public void ChangeTime(float time) => _timer.ChangeTime(time);

@@ -11,6 +11,7 @@ namespace LTF.Timers
         public bool CanTick { get; }
 
         public float T { get; }
+        public float TimeLeft { get; }
 
         public void Tick();
 

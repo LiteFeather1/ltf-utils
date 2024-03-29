@@ -32,6 +32,7 @@ namespace LTF.Timers
         public bool CanTick => _canTick;
 
         public float T => _elapsedTime / TimeToDo;
+        public float TimeLeft => TimeToDo - _elapsedTime;
 
         public void Tick()
         {
